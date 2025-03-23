@@ -198,6 +198,48 @@
 .edit-button:hover {
     background-color: #45a049;
 }
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e2e8f0;
+    border-radius: 5px;
+    color: #333;
+}
 
     </style>
     <script>
@@ -255,9 +297,51 @@
                 <button class="edit-button">Edit Profile</button>
             </div>
         `;
+    } else if (section === 'Samadhan') {
+        // Samadhan - Problem Analysis and Solution
+        document.querySelector('.content').innerHTML = `
+            <h2>Samadhan - Problem Analysis and Solution</h2>
+            <div class="container">
+                <textarea id="problemInput" placeholder="Enter your problem here..."></textarea>
+                <button onclick="analyzeProblem()">Submit</button>
+                <div id="result" class="result"></div>
+            </div>
+        `;
     } else {
         document.querySelector('.content').innerHTML = `<div class="tile">${section} Content</div>`;
     }
+}
+
+// JavaScript function for problem analysis (kept outside for global scope)
+function analyzeProblem() {
+    const problem = document.getElementById("problemInput").value.toLowerCase();
+    const resultDiv = document.getElementById("result");
+    let response = "";
+
+    // Keyword-based analysis and mapping to contacts
+    if (problem.includes("fan") || problem.includes("electric") || problem.includes("light")) {
+        response = "Contact Electrical Maintenance: Er. Satya Prakash Sahu - 8564845856";
+    } else if (problem.includes("plumbing") || problem.includes("tap") || problem.includes("leakage")) {
+        response = "Contact Plumbing: Er. Avinash Mishra - 9415605567";
+    } else if (problem.includes("civil work") || problem.includes("painting") || problem.includes("mason")) {
+        response = "Contact Civil Work: Er. Avinash Mishra - 9415605567";
+    } else if (problem.includes("drainage") || problem.includes("sanitary")) {
+        response = "Contact Drainage: Er. Manik Chandra - 9452318650";
+    } else if (problem.includes("ac") || problem.includes("air conditioner")) {
+        response = "Contact AC Services: Er. Akhilesh Mishra - 9936215283";
+    } else if (problem.includes("water") || problem.includes("cooler") || problem.includes("purifier")) {
+        response = "Contact Water Cooler & Purifiers: Er. Akhilesh Mishra - 9936215283";
+    } else if (problem.includes("lift") || problem.includes("elevator")) {
+        response = "Contact Lift Services: Er. Satya Prakash Sahu - 8564845856";
+    } else if (problem.includes("furniture") || problem.includes("carpentry")) {
+        response = "Contact Carpentry: Er. Manik Chandra - 9452318650";
+    } else if (problem.includes("ups") || problem.includes("power backup")) {
+        response = "Contact UPS System: Er. Anil Bhadauria - 9415340740";
+    } else {
+        response = "Could not identify the problem. Please provide more details.";
+    }
+
+    resultDiv.innerHTML = `<strong>Solution:</strong> ${response}`;
 }
 
     </script>
