@@ -9,7 +9,9 @@
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #d3d3d3;
+            overflow: hidden;
         }
+
         .header {
             background-color: black;
             color: white;
@@ -22,21 +24,28 @@
             width: 100%;
             z-index: 100;
         }
+
         .header h1 {
-            font-size: 24px;
-            color: #008000;
-            margin-left: 20px;
+            font-size: 26px;
+            color: #00a000;
+            margin: 0 auto;
+            position: relative;
+            top: -4px;
         }
+
         .menu-icon {
             font-size: 24px;
-            margin-right: 20px;
+            position: absolute;
+            left: 10px;
             cursor: pointer;
         }
+
         .content {
             margin-top: 50px;
             height: calc(100vh - 110px);
             background-color: #d3d3d3;
         }
+
         .navbar {
             display: flex;
             justify-content: space-around;
@@ -48,17 +57,23 @@
             bottom: 0;
             width: 100%;
         }
+
         .navbar div {
             text-align: center;
             font-size: 14px;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
         }
+
         .navbar div:hover {
-            color: #888;
+            color: #aaaaaa;
         }
-        .navbar img {
-            width: 20px;
-            height: 20px;
+
+        .icon {
+            font-size: 20px;
             margin-bottom: 4px;
         }
     </style>
@@ -73,23 +88,23 @@
 
     <div class="navbar">
         <div>
-            <img src="home-icon.png" alt="Home" />
+            <span class="icon">🏠</span>
             <p>Home</p>
         </div>
         <div>
-            <img src="search-icon.png" alt="Search" />
+            <span class="icon">🔍</span>
             <p>Search</p>
         </div>
         <div>
-            <img src="aviral-icon.png" alt="Aviral" />
+            <span class="icon">📚</span>
             <p>Aviral</p>
         </div>
         <div>
-            <img src="samadhan-icon.png" alt="Samadhan" />
+            <span class="icon">💼</span>
             <p>Samadhan</p>
         </div>
         <div>
-            <img src="profile-icon.png" alt="Profile" />
+            <span class="icon">👤</span>
             <p>Profile</p>
         </div>
     </div>
