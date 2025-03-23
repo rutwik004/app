@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pragyanam</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #d3d3d3;
+        }
+        .header {
+            background-color: black;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+        .header h1 {
+            font-size: 24px;
+            color: #008000;
+            margin-left: 20px;
+        }
+        .menu-icon {
+            font-size: 24px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        .content {
+            margin-top: 50px;
+            height: calc(100vh - 110px);
+            background-color: #d3d3d3;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: black;
+            color: white;
+            height: 60px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .navbar div {
+            text-align: center;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .navbar div:hover {
+            color: #888;
+        }
+        .navbar img {
+            width: 20px;
+            height: 20px;
+            margin-bottom: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <span class="menu-icon">☰</span>
+        <h1>प्रज्ञानम्</h1>
+    </div>
+
+    <div class="content"></div>
+
+    <div class="navbar">
+        <div>
+            <img src="home-icon.png" alt="Home" />
+            <p>Home</p>
+        </div>
+        <div>
+            <img src="search-icon.png" alt="Search" />
+            <p>Search</p>
+        </div>
+        <div>
+            <img src="aviral-icon.png" alt="Aviral" />
+            <p>Aviral</p>
+        </div>
+        <div>
+            <img src="samadhan-icon.png" alt="Samadhan" />
+            <p>Samadhan</p>
+        </div>
+        <div>
+            <img src="profile-icon.png" alt="Profile" />
+            <p>Profile</p>
+        </div>
+    </div>
+</body>
+</html>
