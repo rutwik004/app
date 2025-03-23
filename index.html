@@ -330,6 +330,36 @@ button:hover {
         font-size: 16px;
         color: #555;
     }
+    /* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
     </style>
     <script>
        function showSection(section) {
@@ -413,11 +443,12 @@ button:hover {
                         <h3>Library Seats Available</h3>
                         <p id="library-seats">Loading...</p>
                     </div>
-                    <div class="info-card">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3185/3185858.png" alt="Classroom Icon">
-                        <h3>Unoccupied Classrooms</h3>
-                        <p id="empty-classrooms">Loading...</p>
-                    </div>
+                    <div class="info-card" onclick="showAvailableClassrooms()">
+    <img src="https://cdn-icons-png.flaticon.com/512/3185/3185858.png" alt="Classroom Icon">
+    <h3>Unoccupied Classrooms</h3>
+    <p id="empty-classrooms">Loading...</p>
+</div>
+
                 </div>
             `;
             updateHomeData();
@@ -425,6 +456,60 @@ button:hover {
         document.querySelector('.content').innerHTML = `<div class="tile">${section} Content</div>`;
     }
 }
+function showAvailableClassrooms() {
+    const classrooms = [
+        { room: "101", status: "Available" },
+        { room: "102", status: "Available" },
+        { room: "103", status: "Available" },
+        { room: "104", status: "Available" },
+    ];
+
+    let classroomHTML = classrooms.map(cls => `
+        <div class="classroom-card">
+            <h3>Classroom ${cls.room}</h3>
+            <p>Status: ${cls.status}</p>
+            <button onclick="occupyClassroom('${cls.room}')">Occupy</button>
+        </div>
+    `).join('');
+
+    document.querySelector('.content').innerHTML = `
+        <h2>Available Classrooms</h2>
+        <div class="classroom-list">${classroomHTML}</div>
+        <button class="button" onclick="showSection('Home')">Back to Home</button>
+    `;
+}
+let selectedRoom = "";
+
+function occupyClassroom(room) {
+    selectedRoom = room;
+    document.getElementById("selectedClassroom").innerText = `Classroom: ${room}`;
+    document.getElementById("bookingModal").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("bookingModal").style.display = "none";
+}
+
+function confirmBooking() {
+    const date = document.getElementById("bookingDate").value;
+    const startTime = document.getElementById("startTime").value;
+    const endTime = document.getElementById("endTime").value;
+
+    if (date && startTime && endTime) {
+        alert(`Classroom ${selectedRoom} booked for ${date} from ${startTime} to ${endTime}.`);
+
+        // Close modal and return to Home
+        closeModal();
+        document.querySelector('.content').innerHTML = `<h2>Booking Classroom ${selectedRoom}...</h2><p>Please wait...</p>`;
+
+        setTimeout(() => {
+            showSection('Home');
+        }, 2000);
+    } else {
+        alert("Please enter all details.");
+    }
+}
+
 
 function updateHomeData() {
         // Simulated data fetching
@@ -515,5 +600,24 @@ function analyzeProblem() {
         <div onclick="showSection('Samadhan')">💼<p>Samadhan</p></div>
         <div onclick="showSection('Profile')">👤<p>Profile</p></div>
     </div>
+    <!-- Modal for booking classroom -->
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Book Classroom</h2>
+        <p id="selectedClassroom"></p>
+        <label for="bookingDate">Date:</label>
+        <input type="date" id="bookingDate" required>
+
+        <label for="startTime">Start Time:</label>
+        <input type="time" id="startTime" required>
+
+        <label for="endTime">End Time:</label>
+        <input type="time" id="endTime" required>
+
+        <button onclick="confirmBooking()">Confirm Booking</button>
+    </div>
+</div>
+
 </body>
 </html>
