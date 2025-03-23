@@ -99,68 +99,174 @@
             box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
             cursor: pointer;
         }
-
         .scholarship-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
             margin-top: 20px;
         }
-
+        .scholarship-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+            text-align: left;
+            border: 2px solid #4caf50;
+            transition: transform 0.3s;
+        }
+        .scholarship-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .scholarship-card h3 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 5px;
+        }
+        .scholarship-card p {
+            margin: 5px 0;
+            color: #555;
+        }
         .button {
             background-color: #4caf50;
             color: white;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border: none;
-            border-radius: 5px;
+            border-radius: 12px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            display: block;
+            width: fit-content;
         }
-
         .button:hover {
             background-color: #45a049;
         }
+        .profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    color: #333;
+}
+
+.profile-container img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    object-fit: cover;
+    border: 3px solid #4caf50;
+}
+
+.profile-info {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.profile-info h2 {
+    margin-bottom: 5px;
+    color: #00a000;
+}
+
+.profile-info p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.edit-button {
+    background-color: #4caf50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.edit-button:hover {
+    background-color: #45a049;
+}
+
     </style>
     <script>
-        function showSection(section) {
-            if (section === 'Scholarship') {
-                document.querySelector('.content').innerHTML = `
-                    <div class="scholarship-section">
-                        <h2>Scholarship Section</h2>
-                        <button class="button" onclick="showEligibleScholarships()">Search for Eligible Scholarships</button>
-                        <button class="button" onclick="showSection('Aviral')">Return</button>
-                        <div id="scholarship-list"></div>
-                    </div>
-                `;
-            } else if (section === 'Aviral') {
-                document.querySelector('.content').innerHTML = `
-                    
-                    <div class="dashboard">
-                        <div class="tile tile1" onclick="showSection('Dashboard')" >Dashboard</div>
-                        <div class="tile tile2" onclick="showSection('Course Registration')">Course Registration</div>
-                        <div class="tile tile3" onclick="showSection('Elective Selection')">Elective Selection</div>
-                        <div class="tile tile4" onclick="showSection('Minor Selection')">Minor Selection</div>
-                        <div class="tile tile5" onclick="showSection('Course Summary')">Course Summary</div>
-                        <div class="tile tile6" onclick="showSection('Semester Result')">Semester Result</div>
-                        <div class="tile tile7" onclick="showSection('Scholarship')">Scholarship</div>
-                    </div>
-                `;
-            } else {
-                document.querySelector('.content').innerHTML = `<div class="tile">${section} Content</div>`;
-            }
-        }
+       function showSection(section) {
+    if (section === 'Scholarship') {
+        // Scholarship Section Code
+        const scholarships = [
+            { name: 'Scholarship A', deadline: '30th March', amount: '₹20,000' },
+            { name: 'Scholarship B', deadline: '15th April', amount: '₹15,000' },
+            { name: 'Scholarship C', deadline: '10th May', amount: '₹25,000' }
+        ];
+        const list = scholarships.map(sch => `
+            <div class="scholarship-card">
+                <h3>${sch.name}</h3>
+                <p><strong>Deadline:</strong> ${sch.deadline}</p>
+                <p><strong>Amount:</strong> ${sch.amount}</p>
+            </div>
+        `).join('');
 
-        function showEligibleScholarships() {
-            const scholarships = ['Scholarship A', 'Scholarship B', 'Scholarship C'];
-            const list = scholarships.map(sch => `<p>${sch}</p>`).join('');
-            document.getElementById('scholarship-list').innerHTML = list;
-        }
+        document.querySelector('.content').innerHTML = `
+            <div class="scholarship-section">
+                ${list}
+                <button class="button" onclick="showSection('Aviral')">Return</button>
+            </div>
+        `;
+
+    } else if (section === 'Aviral') {
+        // Aviral Section Code
+        document.querySelector('.content').innerHTML = `
+            <div class="dashboard">
+                <div class="tile">Dashboard</div>
+                <div class="tile">Course Registration</div>
+                <div class="tile">Elective Selection</div>
+                <div class="tile">Minor Selection</div>
+                <div class="tile">Course Summary</div>
+                <div class="tile">Semester Result</div>
+                <div class="tile" onclick="showSection('Scholarship')">Scholarship</div>
+            </div>
+        `;
+
+    } else if (section === 'Profile') {
+        // Profile Section Code
+        document.querySelector('.content').innerHTML = `
+            <div class="profile-container">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqafzhnwwYzuOTjTlaYMeQ7hxQLy_Wq8dnQg&s" alt="Profile Picture">
+                <div class="profile-info">
+                    <h2>Rutwik Wakale</h2>
+                    <p><strong>Roll Number:</strong> IIB2024004</p>
+                    <p><strong>Branch:</strong> Information Technology Business Informatics</p>
+                    <p><strong>Semester:</strong> 2nd</p>
+                    <p><strong>Email:</strong> iib2024004@iiita.ac.in</p>
+                    <p><strong>Phone:</strong> +91 7276025406</p>
+                    <p><strong>Enrollment Year:</strong> 2024</p>
+                </div>
+                <button class="edit-button">Edit Profile</button>
+            </div>
+        `;
+    } else {
+        document.querySelector('.content').innerHTML = `<div class="tile">${section} Content</div>`;
+    }
+}
+
     </script>
 </head>
 <body onload="showSection('Home')">
     <div class="header">
         <span class="menu-icon">☰</span>
-        <h1>प्रज्ञानम्</h1>
+        <h1 onclick="showSection('Home')" style="cursor: pointer;">प्रज्ञानम्</h1>
+
     </div>
 
     <div class="content"></div>
