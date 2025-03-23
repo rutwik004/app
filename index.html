@@ -240,6 +240,69 @@ button:hover {
     border-radius: 5px;
     color: #333;
 }
+/* Search Page Styling */
+/* Centered Search Box */
+.search-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.search-container h2 {
+    color: #333;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+/* Input Field */
+#searchInput {
+    width: 80%;
+    max-width: 400px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #4CAF50;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#searchInput:focus {
+    border-color: #45a049;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+/* Search Results Below Input */
+.search-results {
+    margin-top: 10px;
+    text-align: center;
+    display: block;
+    width: 80%;
+    max-width: 400px;
+}
+
+/* Search Result Item */
+.search-item {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    text-align: center;
+}
+
+.search-item:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* No Results Found */
+.no-results {
+    font-size: 14px;
+    color: #888;
+    margin-top: 10px;
+}
 
     </style>
     <script>
@@ -307,10 +370,53 @@ button:hover {
                 <div id="result" class="result"></div>
             </div>
         `;
-    } else {
+    } else if (section === 'Search') {
+    document.querySelector('.content').innerHTML = `
+        <div class="search-container">
+            <h2>Search Features</h2>
+            <input type="text" id="searchInput" placeholder="Search..." oninput="searchFeatures()">
+            <div id="searchResults" class="search-results"></div>
+        </div>
+    `;
+}
+
+
+    else {
         document.querySelector('.content').innerHTML = `<div class="tile">${section} Content</div>`;
     }
 }
+
+
+function searchFeatures() {
+    const query = document.getElementById("searchInput").value.toLowerCase();
+    const resultsDiv = document.getElementById("searchResults");
+
+    if (query.trim() === "") {
+        resultsDiv.innerHTML = ""; // Hide suggestions when input is empty
+        return;
+    }
+
+    const features = [
+        { name: "Dashboard", section: "Aviral" },
+        { name: "Course Registration", section: "Aviral" },
+        { name: "Elective Selection", section: "Aviral" },
+        { name: "Minor Selection", section: "Aviral" },
+        { name: "Course Summary", section: "Aviral" },
+        { name: "Semester Result", section: "Aviral" },
+        { name: "Scholarship", section: "Scholarship" },
+        { name: "Profile", section: "Profile" },
+        { name: "Samadhan", section: "Samadhan" }
+    ];
+
+    const filteredResults = features
+        .filter(f => f.name.toLowerCase().includes(query))
+        .map(f => `<div class="search-item" onclick="showSection('${f.section}')">${f.name}</div>`)
+        .join("");
+
+    resultsDiv.innerHTML = filteredResults || "<p class='no-results'>No results found</p>";
+}
+
+
 
 // JavaScript function for problem analysis (kept outside for global scope)
 function analyzeProblem() {
