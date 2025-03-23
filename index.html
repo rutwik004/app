@@ -333,7 +333,7 @@ button:hover {
     /* Modal Styles */
 /* Modal Styling */
 .modal {
-    display: none; /* Hidden by default */
+    display: none;  /* Hide modal initially */
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -341,10 +341,10 @@ button:hover {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
     justify-content: center;
     align-items: center;
 }
+
 
 .modal-content {
     background-color: white;
@@ -515,7 +515,9 @@ function showAvailableClassrooms() {
     `;
 }
 let selectedRoom = "";
-
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("bookingModal").style.display = "none"; // Ensure modal is hidden initially
+});
 // Function to show modal for classroom booking
 function occupyClassroom(room) {
     selectedRoom = room;
