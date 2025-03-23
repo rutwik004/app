@@ -488,7 +488,11 @@ button:hover {
                 </div>
             `;
             updateHomeData();
-        } else {
+        }else if (section === 'Attendance') {
+    window.location.href = 'i2.html'
+}
+
+ else {
         document.querySelector('.content').innerHTML = `<div class="tile">${section} Content</div>`;
     }
 }
@@ -641,6 +645,8 @@ function analyzeProblem() {
 
     <div class="navbar">
         <div onclick="showSection('Home')">🏠<p>Home</p></div>
+        <div onclick="window.location.href='i2.html'">📅<p>Attendance</p></div>
+
         <div onclick="showSection('Search')">🔍<p>Search</p></div>
         <div onclick="showSection('Aviral')">📚<p>Aviral</p></div>
         <div onclick="showSection('Samadhan')">💼<p>Samadhan</p></div>
