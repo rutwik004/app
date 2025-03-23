@@ -8,10 +8,16 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #d3d3d3;
+            background-color: #f5f5f5;
             overflow: hidden;
         }
-
+        .tile:nth-child(1) { background-color: #fff176; } /* Dashboard */
+        .tile:nth-child(2) { background-color: #ffab91; } /* Course Registration */
+        .tile:nth-child(3) { background-color: #80deea; } /* Elective Selection */
+        .tile:nth-child(4) { background-color: #ffcc80; } /* Minor Selection */
+        .tile:nth-child(5) { background-color: #f48fb1; } /* Course Summary */
+        .tile:nth-child(6) { background-color: #b39ddb; } /* Semester Result */
+        .tile:nth-child(7) { background-color: #a5d6a7; } /* Scholarship */
         .header {
             background-color: black;
             color: white;
@@ -43,7 +49,8 @@
         .content {
             margin-top: 50px;
             height: calc(100vh - 110px);
-            background-color: #d3d3d3;
+            padding: 10px;
+            overflow-y: auto;
         }
 
         .navbar {
@@ -72,13 +79,85 @@
             color: #aaaaaa;
         }
 
-        .icon {
-            font-size: 20px;
-            margin-bottom: 4px;
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .tile {
+            background-color: #ddd;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        .scholarship-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background-color: #45a049;
         }
     </style>
+    <script>
+        function showSection(section) {
+            if (section === 'Scholarship') {
+                document.querySelector('.content').innerHTML = `
+                    <div class="scholarship-section">
+                        <h2>Scholarship Section</h2>
+                        <button class="button" onclick="showEligibleScholarships()">Search for Eligible Scholarships</button>
+                        <button class="button" onclick="showSection('Aviral')">Return</button>
+                        <div id="scholarship-list"></div>
+                    </div>
+                `;
+            } else if (section === 'Aviral') {
+                document.querySelector('.content').innerHTML = `
+                    
+                    <div class="dashboard">
+                        <div class="tile tile1" onclick="showSection('Dashboard')" >Dashboard</div>
+                        <div class="tile tile2" onclick="showSection('Course Registration')">Course Registration</div>
+                        <div class="tile tile3" onclick="showSection('Elective Selection')">Elective Selection</div>
+                        <div class="tile tile4" onclick="showSection('Minor Selection')">Minor Selection</div>
+                        <div class="tile tile5" onclick="showSection('Course Summary')">Course Summary</div>
+                        <div class="tile tile6" onclick="showSection('Semester Result')">Semester Result</div>
+                        <div class="tile tile7" onclick="showSection('Scholarship')">Scholarship</div>
+                    </div>
+                `;
+            } else {
+                document.querySelector('.content').innerHTML = `<div class="tile">${section} Content</div>`;
+            }
+        }
+
+        function showEligibleScholarships() {
+            const scholarships = ['Scholarship A', 'Scholarship B', 'Scholarship C'];
+            const list = scholarships.map(sch => `<p>${sch}</p>`).join('');
+            document.getElementById('scholarship-list').innerHTML = list;
+        }
+    </script>
 </head>
-<body>
+<body onload="showSection('Home')">
     <div class="header">
         <span class="menu-icon">☰</span>
         <h1>प्रज्ञानम्</h1>
@@ -87,26 +166,11 @@
     <div class="content"></div>
 
     <div class="navbar">
-        <div>
-            <span class="icon">🏠</span>
-            <p>Home</p>
-        </div>
-        <div>
-            <span class="icon">🔍</span>
-            <p>Search</p>
-        </div>
-        <div>
-            <span class="icon">📚</span>
-            <p>Aviral</p>
-        </div>
-        <div>
-            <span class="icon">💼</span>
-            <p>Samadhan</p>
-        </div>
-        <div>
-            <span class="icon">👤</span>
-            <p>Profile</p>
-        </div>
+        <div onclick="showSection('Home')">🏠<p>Home</p></div>
+        <div onclick="showSection('Search')">🔍<p>Search</p></div>
+        <div onclick="showSection('Aviral')">📚<p>Aviral</p></div>
+        <div onclick="showSection('Samadhan')">💼<p>Samadhan</p></div>
+        <div onclick="showSection('Profile')">👤<p>Profile</p></div>
     </div>
 </body>
 </html>
