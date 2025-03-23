@@ -365,10 +365,11 @@ button:hover {
         document.querySelector('.content').innerHTML = `
             <h2>Samadhan - Problem Analysis and Solution</h2>
             <div class="container">
-                <textarea id="problemInput" placeholder="Enter your problem here..."></textarea>
-                <button onclick="analyzeProblem()">Submit</button>
-                <div id="result" class="result"></div>
-            </div>
+    <textarea id="problemInput" placeholder="Enter your problem here..."></textarea>
+    <button onclick="analyzeProblem()">Submit</button>
+    <div id="result" class="result" style="display: none;"></div>
+</div>
+
         `;
     } else if (section === 'Search') {
     document.querySelector('.content').innerHTML = `
@@ -424,7 +425,6 @@ function analyzeProblem() {
     const resultDiv = document.getElementById("result");
     let response = "";
 
-    // Keyword-based analysis and mapping to contacts
     if (problem.includes("fan") || problem.includes("electric") || problem.includes("light")) {
         response = "Contact Electrical Maintenance: Er. Satya Prakash Sahu - 8564845856";
     } else if (problem.includes("plumbing") || problem.includes("tap") || problem.includes("leakage")) {
@@ -447,6 +447,8 @@ function analyzeProblem() {
         response = "Could not identify the problem. Please provide more details.";
     }
 
+    // Show result box and update content
+    resultDiv.style.display = "block";
     resultDiv.innerHTML = `<strong>Solution:</strong> ${response}`;
 }
 
