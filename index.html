@@ -504,7 +504,7 @@ function showAvailableClassrooms() {
         <div class="classroom-card">
             <h3>Classroom ${cls.room}</h3>
             <p>Status: ${cls.status}</p>
-            <button onclick="occupyClassroom('${cls.room}')">Occupy</button>
+            <button onclick="occupyClassroom('${cls.room}')">Reserve</button>
         </div>
     `).join('');
 
@@ -532,11 +532,11 @@ function closeModal() {
 
 // Function to confirm booking
 function confirmBooking() {
-    let date = document.getElementById("bookingDate").value;
+    
     let startTime = document.getElementById("startTime").value;
     let endTime = document.getElementById("endTime").value;
 
-    if (date && startTime && endTime) {
+    if (startTime && endTime) {
         
         
         // Close modal
@@ -650,10 +650,9 @@ function analyzeProblem() {
     <div id="bookingModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Book Classroom <span id="modalRoom"></span></h2>
+            <h2>Reserve Classroom <span id="modalRoom"></span></h2>
             <form id="bookingForm">
-                <label for="bookingDate">Date:</label>
-                <input type="date" id="bookingDate" required>
+                
     
                 <label for="startTime">Start Time:</label>
                 <input type="time" id="startTime" required>
@@ -661,7 +660,7 @@ function analyzeProblem() {
                 <label for="endTime">End Time:</label>
                 <input type="time" id="endTime" required>
     
-                <button type="button" onclick="confirmBooking()">Confirm Booking</button>
+                <button type="button" onclick="confirmBooking()">Confirm</button>
             </form>
         </div>
     </div>
