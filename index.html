@@ -331,8 +331,9 @@ button:hover {
         color: #555;
     }
     /* Modal Styles */
+/* Modal Styling */
 .modal {
-    display: none;
+    display: none; /* Hidden by default */
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -340,22 +341,57 @@ button:hover {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
     background-color: white;
-    margin: 15% auto;
     padding: 20px;
     border-radius: 10px;
-    width: 300px;
     text-align: center;
-    position: relative;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    margin-bottom: 15px;
+}
+
+.modal-content label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal-content button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+.modal-content button:hover {
+    background-color: #45a049;
 }
 
 .close {
     position: absolute;
-    top: 10px;
     right: 15px;
+    top: 15px;
     font-size: 20px;
     cursor: pointer;
 }
@@ -480,33 +516,41 @@ function showAvailableClassrooms() {
 }
 let selectedRoom = "";
 
+// Function to show modal for classroom booking
 function occupyClassroom(room) {
     selectedRoom = room;
-    document.getElementById("selectedClassroom").innerText = `Classroom: ${room}`;
-    document.getElementById("bookingModal").style.display = "block";
+    document.getElementById("modalRoom").textContent = room;
+    document.getElementById("bookingModal").style.display = "flex";
 }
 
+// Function to close modal
 function closeModal() {
     document.getElementById("bookingModal").style.display = "none";
 }
 
+// Function to confirm booking
 function confirmBooking() {
-    const date = document.getElementById("bookingDate").value;
-    const startTime = document.getElementById("startTime").value;
-    const endTime = document.getElementById("endTime").value;
+    let date = document.getElementById("bookingDate").value;
+    let startTime = document.getElementById("startTime").value;
+    let endTime = document.getElementById("endTime").value;
 
     if (date && startTime && endTime) {
-        alert(`Classroom ${selectedRoom} booked for ${date} from ${startTime} to ${endTime}.`);
-
-        // Close modal and return to Home
+        
+        
+        // Close modal
         closeModal();
-        document.querySelector('.content').innerHTML = `<h2>Booking Classroom ${selectedRoom}...</h2><p>Please wait...</p>`;
+
+        // Show confirmation animation
+        document.querySelector('.content').innerHTML = `
+            <h2>Booking Classroom ${selectedRoom}...</h2>
+            <p>Please wait...</p>
+        `;
 
         setTimeout(() => {
-            showSection('Home');
+            showSection('Home'); // Return to Home after booking
         }, 2000);
     } else {
-        alert("Please enter all details.");
+        alert("Please fill in all fields.");
     }
 }
 
@@ -601,23 +645,25 @@ function analyzeProblem() {
         <div onclick="showSection('Profile')">👤<p>Profile</p></div>
     </div>
     <!-- Modal for booking classroom -->
-<div id="bookingModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Book Classroom</h2>
-        <p id="selectedClassroom"></p>
-        <label for="bookingDate">Date:</label>
-        <input type="date" id="bookingDate" required>
-
-        <label for="startTime">Start Time:</label>
-        <input type="time" id="startTime" required>
-
-        <label for="endTime">End Time:</label>
-        <input type="time" id="endTime" required>
-
-        <button onclick="confirmBooking()">Confirm Booking</button>
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Book Classroom <span id="modalRoom"></span></h2>
+            <form id="bookingForm">
+                <label for="bookingDate">Date:</label>
+                <input type="date" id="bookingDate" required>
+    
+                <label for="startTime">Start Time:</label>
+                <input type="time" id="startTime" required>
+    
+                <label for="endTime">End Time:</label>
+                <input type="time" id="endTime" required>
+    
+                <button type="button" onclick="confirmBooking()">Confirm Booking</button>
+            </form>
+        </div>
     </div>
-</div>
+    
 
 </body>
 </html>
