@@ -59,17 +59,16 @@
             width: 100%;
             font-size: 16px;
         }
-        .present, .absent {
+        .absent {
             padding: 5px 12px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             margin-left: 5px;
             font-size: 12px;
-            position: relative;
+            background-color: #f44336;
+            color: white;
         }
-        .present { background-color: #4CAF50; color: white; }
-        .absent { background-color: #f44336; color: white; }
         .status-icon {
             font-size: 16px;
             margin-right: 5px;
@@ -116,32 +115,34 @@
             for (let i = 1; i <= totalStudents; i++) {
                 let roll = "IIB2024" + (i.toString().padStart(2, '0'));
                 studentList += `<div class='student' id='student-${roll}'>
-                                    <span id='status-${roll}' class='status-icon'></span>
+                                    <span id='status-${roll}' class='status-icon'>✔</span>
                                     <span>${roll}</span>
-                                    <button class='present' onclick="markAttendance('${roll}', 'Present', this)">✔ Present</button>
-                                    <button class='absent' onclick="markAttendance('${roll}', 'Absent', this)">✖ Absent</button>
+                                    <button class='absent' onclick="markAbsent('${roll}', this)">✖ Absent</button>
                                 </div>`;
             }
             document.getElementById("students").innerHTML = studentList;
         }
 
-        function markAttendance(roll, status, btn) {
-            attendance[roll] = status;
-            let parent = btn.parentElement;
-            parent.querySelectorAll("button").forEach(b => b.classList.remove("selected"));
-            btn.classList.add("selected");
-            let statusIcon = document.getElementById(`status-${roll}`);
-            statusIcon.innerHTML = status === "Present" ? "✔" : "✖";
-            statusIcon.style.color = status === "Present" ? "green" : "red";
+        function markAbsent(roll, btn) {
+            if (attendance[roll] === "Absent") {
+                delete attendance[roll];
+                btn.classList.remove("selected");
+                document.getElementById(`status-${roll}`).innerHTML = "✔";
+                document.getElementById(`status-${roll}`).style.color = "green";
+            } else {
+                attendance[roll] = "Absent";
+                btn.classList.add("selected");
+                document.getElementById(`status-${roll}`).innerHTML = "✖";
+                document.getElementById(`status-${roll}`).style.color = "red";
+            }
         }
 
         function submitAttendance() {
-            let present = Object.values(attendance).filter(status => status === "Present").length;
-            let absent = Object.values(attendance).filter(status => status === "Absent").length;
+            let absent = Object.keys(attendance).length;
+            let present = totalStudents - absent;
             document.getElementById("attendance").innerHTML = `
                 <h2>Attendance Summary</h2>
                 <p>Total Students: ${totalStudents}</p>
-                <p>Attendances Taken: ${present + absent}</p>
                 <p>Present: ${present}</p>
                 <p>Absent: ${absent}</p>
                 <button class="btn" onclick="window.location.href = 'index.html'">Return to Home</button>
